@@ -120,17 +120,20 @@ fun SimpleForm() {
                     .fillMaxWidth()
                     .padding(8.dp)
             ) {
-                Text(text = if (selectedDateText.isNotEmpty()) {
-                    "Data Selecionada $selectedDateText"
-                } else {
-                    "Data de Contato"
-                })
+                Text(
+                    text = if (selectedDateText.isNotEmpty()) {
+                        "Data Selecionada $selectedDateText"
+                    } else {
+                        "Data de Contato"
+                    }
+                )
             }
         }
         val text = rememberSaveable { mutableStateOf("") }
         TextField(
             value = text.value,
-            onValueChange = { text.value = it }, modifier = Modifier
+            onValueChange = { text.value = it },
+            modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
                 .padding(10.dp)
@@ -145,7 +148,7 @@ fun SimpleForm() {
                 .padding(8.dp)
         ) {
             Text("Cadastrar")
-
+        }
             Button(
                 onClick = { /* Implemente a lógica do botão aqui */ },
                 modifier = Modifier
@@ -153,155 +156,154 @@ fun SimpleForm() {
                     .padding(8.dp)
             ) {
                 Text("Cancelar")
+            }
         }
     }
-}
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ExposedDropdownMenuSample() {
-    val options = listOf("Facebook", "Telefone", "E-mail", "Whatsapp", "Instagram")
-    var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf(options[0]) }
-    // We want to react on tap/press on TextField to show menu
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
-    ) {
-        TextField(
-            // The `menuAnchor` modifier must be passed to the text field for correctness.
-            modifier = Modifier.menuAnchor().fillMaxWidth()
-            .padding(16.dp),
-            readOnly = true,
-            value = selectedOptionText,
-            onValueChange = {},
-            label = { Text("Origem") },
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            colors = ExposedDropdownMenuDefaults.textFieldColors(),
-        )
-        ExposedDropdownMenu(
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun ExposedDropdownMenuSample() {
+        val options = listOf("Facebook", "Telefone", "E-mail", "Whatsapp", "Instagram")
+        var expanded by remember { mutableStateOf(false) }
+        var selectedOptionText by remember { mutableStateOf(options[0]) }
+        // We want to react on tap/press on TextField to show menu
+        ExposedDropdownMenuBox(
             expanded = expanded,
-            onDismissRequest = { expanded = false },
+            onExpandedChange = { expanded = !expanded },
         ) {
-            options.forEach { selectionOption ->
-                DropdownMenuItem(
-                    text = { Text(selectionOption) },
-                    onClick = {
-                        selectedOptionText = selectionOption
-                        expanded = false
-                    },
-                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
-                )
-            }
-        }
-    }
-}
-
-
-@Composable
-fun App() {
-    InterfaceTheme {
-        // A surface container using the 'background' color from the theme
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                // O SimpleBottomAppBar ficará na parte superior
-                SimpleBottomAppBar()
-
-                // Adiciona um espaço flexível para empurrar o BottomAppBarWithFAB para a parte inferior
-                Spacer(modifier = Modifier.weight(1f))
-
-                // O BottomAppBarWithFAB ficará na parte inferior
-                BottomAppBarWithFAB()
-            }
-        }
-    }
-}
-
-
-
-@Composable
-fun SimpleBottomAppBar() {
-    BottomAppBar {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            Text(
-                text = "AppFirestore - Cadastro",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(bottom = 16.dp)
+            TextField(
+                // The `menuAnchor` modifier must be passed to the text field for correctness.
+                modifier = Modifier.menuAnchor().fillMaxWidth()
+                    .padding(16.dp),
+                readOnly = true,
+                value = selectedOptionText,
+                onValueChange = {},
+                label = { Text("Origem") },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                colors = ExposedDropdownMenuDefaults.textFieldColors(),
             )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+            ) {
+                options.forEach { selectionOption ->
+                    DropdownMenuItem(
+                        text = { Text(selectionOption) },
+                        onClick = {
+                            selectedOptionText = selectionOption
+                            expanded = false
+                        },
+                        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                    )
+                }
+            }
         }
     }
-}
-
 
 @Composable
-fun BottomAppBarWithFAB() {
-    BottomAppBar(
-        actions = {
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(Icons.Filled.Check, contentDescription = "Localized description")
+    fun App() {
+        InterfaceTheme {
+            // A surface container using the 'background' color from the theme
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    // O SimpleBottomAppBar ficará na parte superior
+                    SimpleBottomAppBar()
+
+                    // Adiciona um espaço flexível para empurrar o BottomAppBarWithFAB para a parte inferior
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    // O BottomAppBarWithFAB ficará na parte inferior
+                    BottomAppBarWithFAB()
+                }
             }
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(
-                    Icons.Filled.Edit,
-                    contentDescription = "Localized description",
+        }
+    }
+
+
+    @Composable
+    fun SimpleBottomAppBar() {
+        BottomAppBar {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Text(
+                    text = "AppFirestore - Cadastro",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(bottom = 16.dp)
                 )
             }
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /* do something */ },
-                containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
-                elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
-            ) {
-                Icon(Icons.Filled.Add, "Localized description")
-            }
         }
-    )
-}
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun ExposedDropdownMenuSamplePreview(){
-    InterfaceTheme {
-        ExposedDropdownMenuSample()
     }
-}
-@Preview(showBackground = true)
-@Composable
-fun BottomAppBarPreview() {
-    InterfaceTheme {
-        BottomAppBarWithFAB()
-    }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun SimpleBottomPreview() {
-    InterfaceTheme {
-        SimpleBottomAppBar()
 
+    @Composable
+    fun BottomAppBarWithFAB() {
+        BottomAppBar(
+            actions = {
+                IconButton(onClick = { /* doSomething() */ }) {
+                    Icon(Icons.Filled.Check, contentDescription = "Localized description")
+                }
+                IconButton(onClick = { /* doSomething() */ }) {
+                    Icon(
+                        Icons.Filled.Edit,
+                        contentDescription = "Localized description",
+                    )
+                }
+            },
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { /* do something */ },
+                    containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+                    elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
+                ) {
+                    Icon(Icons.Filled.Add, "Localized description")
+                }
+            }
+        )
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun SimpleFormPreview() {
-    InterfaceTheme {
-        SimpleForm()
+
+    @Preview(showBackground = true)
+    @Composable
+    fun ExposedDropdownMenuSamplePreview() {
+        InterfaceTheme {
+            ExposedDropdownMenuSample()
+        }
     }
-}
+
+    @Preview(showBackground = true)
+    @Composable
+    fun BottomAppBarPreview() {
+        InterfaceTheme {
+            BottomAppBarWithFAB()
+        }
+    }
+
+    @Preview(showBackground = true)
+    @Composable
+    fun SimpleBottomPreview() {
+        InterfaceTheme {
+            SimpleBottomAppBar()
+
+        }
+    }
+
+    @Preview(showBackground = true)
+    @Composable
+    fun SimpleFormPreview() {
+        InterfaceTheme {
+            SimpleForm()
+        }
+    }
